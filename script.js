@@ -39,3 +39,32 @@ const removeProduct = (name, quant) => {
     }
     return
 }
+
+/* UNITE UNIQUE */
+
+const uniteUnique = (...restArr) => {
+  let newArr = []
+  for (let array of restArr) {
+    for (let i = 0; i < array.length; i++)
+    if (!newArr.includes(array[i])) {
+      newArr.push(array[i])
+    }
+  }
+  return newArr
+  /* 
+  logging(uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1], [3, 5]))
+  returns([ 1, 3, 2, 5, 4 ])
+  */
+}
+
+/* RANDOM PASSWORD */
+
+const generatePassword = (num) => {
+  let password = "";
+  let validChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()".split("");
+  for (let i = 0; i < num; i++) {
+    let randomIndex = Math.floor(Math.random() * 72)
+    password += validChar[randomIndex]
+  }
+  return password
+} 
