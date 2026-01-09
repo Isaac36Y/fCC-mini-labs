@@ -57,7 +57,7 @@ const uniteUnique = (...restArr) => {
   */
 }
 
-/* RANDOM PASSWORD */
+/* RANDOM PASSWORD Math.floor, Math.random */
 
 const generatePassword = (num) => {
   let password = "";
@@ -68,3 +68,28 @@ const generatePassword = (num) => {
   }
   return password
 } 
+
+/* SUMALL  Math.min, Math.max*/
+
+const sumAll = (arr) => {
+  let min = Math.min(arr[0], arr[1]);
+  let max = Math.max(arr[0], arr[1]);
+  let sum = 0;
+  for (let i = max; i >= min; i--) {
+    sum += i
+  }
+  return sum
+}
+
+/* DNA Pair Generater .map() */
+
+const pairElement = (str) => {
+  const pairs = {
+    A: "T",
+    T: "A",
+    C: "G",
+    G: "C"
+  }
+
+  return [...str].map(letter => [letter, pairs[letter]])
+}
