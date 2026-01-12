@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
-    <link rel="stylesheet" href="style.css">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lightbox Viewer</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Build a Set of Football Team Cards
+    </title>
+    <link rel="stylesheet" href="style.css" />
   </head>
-
   <body>
+    <h1 class="title">Team stats</h1>
     <main>
-        <div class="lightbox">
-            <button class="close-btn" id="close-btn">&times;</button>
-            <img src="" alt="" id="lightbox-image" class="lightbox-img">
-        </div>
-        <h1 class="header">Museum Gallery</h1>
-        <div class="gallery">
-            <img class="gallery-item" src="https://cdn.freecodecamp.org/curriculum/labs/stonehenge-thumbnail.jpg" alt="">
-            <img class="gallery-item" src="https://cdn.freecodecamp.org/curriculum/labs/storm-thumbnail.jpg" alt="">
-            <img class="gallery-item" src="https://cdn.freecodecamp.org/curriculum/labs/trees-thumbnail.jpg" alt="">
-        </div>
-        <script src="script.js"></script>
+      <div class="team-stats">
+        <p>Team: <span id="team"></span></p>
+        <p>Year: <span id="year"></span></p>
+        <p>Head coach: <span id="head-coach"></span></p>
+      </div>
+      <label class="options-label" for="players">Filter Teammates:</label>
+      <select name="players" id="players">
+        <option value="all">All Players</option>
+        <option value="forward">Position Forward</option>
+        <option value="midfielder">Position Midfielder</option>
+        <option value="defender">Position Defender</option>
+        <option value="goalkeeper">Position Goalkeeper</option>
+      </select>
+      <div class="cards" id="player-cards"></div>
     </main>
+    <footer>&copy; freeCodeCamp</footer>
+    <script src="./script.js"></script>
   </body>
-
 </html>

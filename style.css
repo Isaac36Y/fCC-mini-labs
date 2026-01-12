@@ -1,63 +1,64 @@
-*, 
-*::after,
-*::before {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-
-.header {
-    background-color: rgb(185, 170, 170);
-    text-align: center;
-    margin-block: 10rem 4rem;
-    font-size: 3rem;;
+:root {
+  --dark-grey: #0a0a23;
+  --light-grey: #f5f6f7;
+  --white: #ffffff;
+  --black: #000;
 }
 
-.gallery {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    max-width: 80%;
-    margin-inline: auto;
-    gap: 1rem;
+body {
+  background-color: var(--dark-grey);
+  text-align: center;
+  padding: 10px;
 }
 
-.gallery-item {
-    height: 23rem;
-    width: 20rem;
-    object-fit: cover;
-    /* transform: scale(1); */
-    transition: transform 0.1s ease-in-out;
-}
-.gallery-item:hover {
-    cursor: pointer;
-    transform: scale(1.05)
-
+.title,
+.options-label,
+.team-stats,
+footer {
+  color: var(--white);
 }
 
-.lightbox {
-    display: none;
+.title {
+  margin: 1.3rem 0;
+}
+
+.team-stats {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  font-size: 1.3rem;
+  margin: 1.2rem 0;
+}
+
+.options-label {
+  font-size: 1.2rem;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-card {
+  background-color: var(--light-grey);
+  padding: 1.3rem;
+  margin: 1.2rem;
+  width: 300px;
+  border-radius: 15px;
+}
+
+@media (max-width: 768px) {
+  .team-stats {
     flex-direction: column;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(46, 56, 42, 0.889);
-    .lightbox-img{
-        width: min(90%, 85rem);
-        align-self: center;
-    }
-}
-.close-btn {
-    position: fixed;
-    right: 1%;
-    top: 3%;
-    height: 3rem;
-    width: 3rem;
-    font-size: 3rem;
-    color: beige;
-    background-color: transparent;
-    
+  }
 }
