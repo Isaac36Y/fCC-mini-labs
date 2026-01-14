@@ -1,88 +1,33 @@
-const footballTeam = {
-    team: "Bengals",
-    year: 1964,
-    headCoach: "Zac Taylor",
-    players: [
-      {
-        name: "Joe Burrow",
-        position: "forward",
-        isCaptain: true
-      },
-      {
-        name: "Ja'marr Chase",
-        position: "midfielder",
-        isCaptain: false
-      },
-      {
-        name: "Tee Higgins",
-        position: "midfielder",
-        isCaptain: false
-      },
-      {
-        name: "Chase Brown",
-        position: "defender",
-        isCaptain: false
-      },
-      {
-        name: "Trey Hendrickson",
-        position: "goalkeeper",
-        isCaptain: false
-      },
-      {
-        name: "Andrei Iosivas",
-        position: "defender",
-        isCaptain: false
-      }
-    ]
+const regexPattern = document.querySelector("#pattern");
+const stringToTest = document.querySelector("#test-string");
+const testButton = document.querySelector("#test-btn");
+const testResult = document.querySelector("#result");
+const caseInsensitiveFlag = document.querySelector("#i");
+const globalFlag = document.querySelector("#g");
+
+const getFlags = () => {
+  let flag = ""
+  if (caseInsensitiveFlag.checked) {
+    flag += "i"
   }
-
-const team = document.querySelector("#team");
-const year = document.querySelector("#year");
-const headCoach = document.querySelector("#head-coach")
-team.textContent = footballTeam.team;
-year.textContent = footballTeam.year;
-headCoach.textContent = footballTeam.headCoach;
-
-const playerCards = document.querySelector("#player-cards");
-
-const appendCards = (player) => {
-  if (player.isCaptain) {
-    playerCards.innerHTML += 
-    `<div class="player-card">
-    <h2>(Captain) ${player.name}</h2>
-    <p>Position: ${player.position}</p>
-    </div>`
-  }else playerCards.innerHTML += 
-    `<div class="player-card">
-    <h2>${player.name}</h2>
-    <p>Position: ${player.position}</p>
-    </div>`
+  if (globalFlag.checked) {
+    flag += "g"
+  }
+  return flag
 }
 
-
-const playerFilter = document.querySelector("#players")
-
-const filterCards = (filter) => {
-  let filteredCard = footballTeam.players.filter((player) => {
-    return player.position === filter
-  })
-
-  if (playerFilter.value === "all") {
-    return footballTeam.players.forEach((player) => appendCards(player))
+const highlight = () => {
+  let newRegex = new RegExp(regexPattern.value, getFlags())
+  let matchingChar = stringToTest.textContent.match(newRegex)
+	console.log(stringToTest, stringToTest.textContent, stringToTest.value)
+	/* console.log(matchingChar, Array.isArray(matchingChar), typeof matchingChar) */
+  if (!getFlags().includes("g")) {
+	let match = matchingChar ? machingChar[0] : ""
+	return stringToTest.innerHTML = stringToTest.textContent.replace(matchingChar, `<span class="highlight">${match}</span>`)
   }else {
-    return filteredCard.forEach((player) => appendCards(player))
+	return stringToTest.innerHTML = stringToTest.textContent.replace(newRegex, (m) => `<span class="highlight">${m}</span>`)
   }
-  
 }
 
-
-filterCards()
-
-playerFilter.addEventListener("change", () => {
-  playerCards.innerHTML = ``
-  filterCards(playerFilter.value)
-  
-}
-  
-)
+testButton.addEventListener("click", () => highlight())
 

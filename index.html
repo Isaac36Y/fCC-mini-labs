@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Build a Set of Football Team Cards
-    </title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <h1 class="title">Team stats</h1>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Regex Sandbox</title>
+
+</head>
+
+<body>
+    <h1>Regex Sandbox</h1>
     <main>
-      <div class="team-stats">
-        <p>Team: <span id="team"></span></p>
-        <p>Year: <span id="year"></span></p>
-        <p>Head coach: <span id="head-coach"></span></p>
-      </div>
-      <label class="options-label" for="players">Filter Teammates:</label>
-      <select name="players" id="players">
-        <option value="all">All Players</option>
-        <option value="forward">Position Forward</option>
-        <option value="midfielder">Position Midfielder</option>
-        <option value="defender">Position Defender</option>
-        <option value="goalkeeper">Position Goalkeeper</option>
-      </select>
-      <div class="cards" id="player-cards"></div>
+        <div id="regex-container">
+            <label for="pattern">Regex Pattern:
+                <div id="pattern-container">/<input type="text" id="pattern" name="pattern"
+                        placeholder="Enter your regex pattern">/</div>
+            </label>
+            <div id="flags-container">
+                <p>Flags: </p>
+                <label for="i">
+                    <input type="checkbox" name="flags" id="i"> i
+                </label>
+                <label for="g">
+                    <input type="checkbox" name="flags" id="g"> g
+                </label>
+            </div>
+        </div>
+        <div id="test-container">
+            <p>Test String:</p>
+            <div id="test-string" placeholder="Enter your test string" contenteditable="true"></div>
+        </div>
+        <button class="btn" id="test-btn" type="button">Test Regex</button>
+        <div id="result-container">
+            <h2>Result:</h2>
+            <p id="result">
+            </p>
+        </div>
+
     </main>
-    <footer>&copy; freeCodeCamp</footer>
     <script src="./script.js"></script>
-  </body>
+</body>
+
 </html>
