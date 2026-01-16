@@ -1,33 +1,21 @@
-const regexPattern = document.querySelector("#pattern");
-const stringToTest = document.querySelector("#test-string");
-const testButton = document.querySelector("#test-btn");
-const testResult = document.querySelector("#result");
-const caseInsensitiveFlag = document.querySelector("#i");
-const globalFlag = document.querySelector("#g");
+const textInput = document.querySelector("#markdown-input")
+const rawHTML = document.querySelector("#html-output")
+const preview = document.querySelector("#preview")
 
-const getFlags = () => {
-  let flag = ""
-  if (caseInsensitiveFlag.checked) {
-    flag += "i"
-  }
-  if (globalFlag.checked) {
-    flag += "g"
-  }
-  return flag
+
+const convertMarkdown = () => {
+	let text = textInput.value;
+	rawHTML.textContent = text
+	.replace(/^(#{3}\s)(.*)/gm, "<h3>$2</h3>")
+	.replace(/^(#{2}\s)(.*)/gm, "<h2>$2</h2>")
+	.replace(/^(#\s)(.*)/gm, "<h1>$2</h1>")
+	.replace(/\*{2}(.*)\*{2}|_{2}(.*)_{2}/gm, "<strong>$1$2</strong>")
+	.replace(/\*(.*)\*|_(.*)_/gm, "<em>$1$2</em>")
+	.replace(/!\[(.*)\]\((.*)\)/gm, '<img alt="$1" src="$2">')
+	.replace(/\[(.*)\]\((.*)\)/gm, '<a href="$2">$1</a>')
+	.replace(/^(>\s)(.*)/gm, "<blockquote>$2</blockquote>")
+	preview.innerHTML = rawHTML.textContent
+	return rawHTML.textContent
 }
 
-const highlight = () => {
-  let newRegex = new RegExp(regexPattern.value, getFlags())
-  let matchingChar = stringToTest.textContent.match(newRegex)
-	console.log(stringToTest, stringToTest.textContent, stringToTest.value)
-	/* console.log(matchingChar, Array.isArray(matchingChar), typeof matchingChar) */
-  if (!getFlags().includes("g")) {
-	let match = matchingChar ? machingChar[0] : ""
-	return stringToTest.innerHTML = stringToTest.textContent.replace(matchingChar, `<span class="highlight">${match}</span>`)
-  }else {
-	return stringToTest.innerHTML = stringToTest.textContent.replace(newRegex, (m) => `<span class="highlight">${m}</span>`)
-  }
-}
-
-testButton.addEventListener("click", () => highlight())
-
+textInput.addEventListener("input", () => convertMarkdown())
