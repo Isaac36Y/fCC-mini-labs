@@ -1,21 +1,58 @@
-const textInput = document.querySelector("#markdown-input")
-const rawHTML = document.querySelector("#html-output")
-const preview = document.querySelector("#preview")
+const nameInput = document.querySelector("#full-name");
+const emailInput = document.querySelector("#email");
+const orderNumberInput = document.querySelector("#order-no");
+const productCodeInput = document.querySelector("#product-code");
+const quantityInput = document.querySelector("#quantity");
+const complaintFieldset = document.querySelectorAll("#complaints-group [type='checkbox']");
+const complaintDescriptionInput = document.querySelector("#complaint-description");
+const solutionFieldSet = document.querySelectorAll("#solutions-group [type='radio']");
+const solutionDescriptionInput = document.querySelector("#solution-description");
+const submitButton = document.querySelector("#submit-btn");
+const messageBox = document.querySelector("#message-box")
+const form = document.querySelector("#form");
 
 
-const convertMarkdown = () => {
-	let text = textInput.value;
-	rawHTML.textContent = text
-	.replace(/^(#{3}\s)(.*)/gm, "<h3>$2</h3>")
-	.replace(/^(#{2}\s)(.*)/gm, "<h2>$2</h2>")
-	.replace(/^(#\s)(.*)/gm, "<h1>$2</h1>")
-	.replace(/\*{2}(.*)\*{2}|_{2}(.*)_{2}/gm, "<strong>$1$2</strong>")
-	.replace(/\*(.*)\*|_(.*)_/gm, "<em>$1$2</em>")
-	.replace(/!\[(.*)\]\((.*)\)/gm, '<img alt="$1" src="$2">')
-	.replace(/\[(.*)\]\((.*)\)/gm, '<a href="$2">$1</a>')
-	.replace(/^(>\s)(.*)/gm, "<blockquote>$2</blockquote>")
-	preview.innerHTML = rawHTML.textContent
-	return rawHTML.textContent
+const validateForm = () => {
+	const object = {}
+	object["full-name"] = (nameInput.value.length >= 1)
+	object["email"] = /.+\@.+\..+/.test(emailInput.value);
+	object["order-no"] = /2024\d{6}$/.test(orderNumberInput.value);
+	object["product-code"] = /[a-zA-Z]{2}\d{2}-[a-zA-Z]\d{3}-[a-zA-Z]{2}\d/.test(productCodeInput.value);
+	object["quantity"] = (Number.isInteger(+quantityInput.value) && +quantityInput.value > 0);
+	object["complaints-group"] = [...complaintFieldset].some(a => a.checked);
+	object["solutions-group"] =  [...solutionFieldSet].some(a => a.checked);
+	if (document.querySelector("#other-complaint").checked) {
+		object["complaint-description"] = complaintDescriptionInput.value.length > 20
+	}
+	if (document.querySelector("#other-solution").checked) {
+		object["solution-description"] = solutionDescriptionInput.value.length > 20
+	}
+
+	return object
 }
 
-textInput.addEventListener("input", () => convertMarkdown())
+Object.keys(validateForm()).forEach(key => {
+	const element = document.querySelector(`#${key}`)
+	element.addEventListener("change", () => {	
+		if (validateForm()[key] === true) {
+		element.style.borderColor = "yellow"
+		}else if (validateForm()[key] === false) {
+		element.style.borderColor = "red"
+		}
+	})
+		
+}) 
+
+
+const isValid = (obj) => {
+	return Object.keys(obj).every(key => key === true)
+}
+
+
+
+form.addEventListener("submit", () => {
+	isValid(validateForm())
+}
+)
+
+
